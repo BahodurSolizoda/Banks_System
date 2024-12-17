@@ -12,54 +12,56 @@ namespace WebApp.Controllers;
 public class CustomerController(IGenericService<Customer> customerService) : ControllerBase
 {
     [HttpGet]
-    public ApiResponse<List<Customer>> GetAll()
+    public async Task<ApiResponse<List<Customer>>> GetAll()
     {
-        return customerService.GetAll();
+        return await customerService.GetAll();
     }
+
     [HttpGet("{id:int}")]
-    public ApiResponse<Customer> GetById(int id)
+    public async Task<ApiResponse<Customer>> GetById(int id)
     {
-        return customerService.GetById(id);
+        return await customerService.GetById(id);
     }
+
     [HttpPost]
-    public ApiResponse<bool> Add(Customer customer)
+    public async Task<ApiResponse<bool>> Add([FromBody] Customer customer)
     {
-        return customerService.Add(customer);
+        return await customerService.Add(customer);
     }
+
     [HttpPut]
-    public ApiResponse<bool> Update(Customer customer)
+    public async Task<ApiResponse<bool>> Update([FromBody] Customer customer)
     {
-        return customerService.Update(customer);
+        return await customerService.Update(customer);
     }
-    [HttpDelete]
-    public ApiResponse<bool> Delete(int id)
+
+    [HttpDelete("{id:int}")]
+    public async Task<ApiResponse<bool>> Delete(int id)
     {
-        return customerService.Delete(id);
+        return await customerService.Delete(id);
     }
-    
-    //New
-    
+
     [HttpGet("GetByCondition")]
-    public ApiResponse<List<Customer>> GetByCondition([FromQuery] string condition)
+    public async Task<ApiResponse<List<Customer>>> GetByCondition([FromQuery] string condition)
     {
-        return customerService.GetByCondition(condition);
+        return await customerService.GetByCondition(condition);
     }
-    
+
     [HttpGet("Exists/{id:int}")]
-    public ApiResponse<bool> Exists(int id)
+    public async Task<ApiResponse<bool>> Exists(int id)
     {
-        return customerService.Exists(id);
+        return await customerService.Exists(id);
     }
-    
+
     [HttpGet("Count")]
-    public ApiResponse<int> Count()
+    public async Task<ApiResponse<int>> Count()
     {
-        return customerService.Count();
+        return await customerService.Count();
     }
-    
+
     [HttpPatch("{id:int}")]
-    public ApiResponse<bool> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
+    public async Task<ApiResponse<bool>> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
     {
-        return customerService.UpdatePartial(id, propertyName, newValue);
+        return await customerService.UpdatePartial(id, propertyName, newValue);
     }
 }

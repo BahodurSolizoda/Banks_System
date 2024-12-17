@@ -11,55 +11,56 @@ namespace WebApp.Controllers;
 public class TransactionController(IGenericService<Transaction> transactionService):ControllerBase
 {
     [HttpGet]
-    public ApiResponse<List<Transaction>> GetAll()
+    public async Task<ApiResponse<List<Transaction>>> GetAll()
     {
-        return transactionService.GetAll();
+        return await transactionService.GetAll();
     }
+
     [HttpGet("{id:int}")]
-    public ApiResponse<Transaction> GetById(int id)
+    public async Task<ApiResponse<Transaction>> GetById(int id)
     {
-        return transactionService.GetById(id);
+        return await transactionService.GetById(id);
     }
+
     [HttpPost]
-    public ApiResponse<bool> Add(Transaction loan)
+    public async Task<ApiResponse<bool>> Add([FromBody] Transaction transaction)
     {
-        return transactionService.Add(loan);
+        return await transactionService.Add(transaction);
     }
+
     [HttpPut]
-    public ApiResponse<bool> Update(Transaction loan)
+    public async Task<ApiResponse<bool>> Update([FromBody] Transaction transaction)
     {
-        return transactionService.Update(loan);
+        return await transactionService.Update(transaction);
     }
-    [HttpDelete]
-    public ApiResponse<bool> Delete(int id)
+
+    [HttpDelete("{id:int}")]
+    public async Task<ApiResponse<bool>> Delete(int id)
     {
-        return transactionService.Delete(id);
+        return await transactionService.Delete(id);
     }
-    
-    
-    //New
-    
-    //New [HttpGet("GetByCondition")]
-    public ApiResponse<List<Transaction>> GetByCondition([FromQuery] string condition)
+
+    [HttpGet("GetByCondition")]
+    public async Task<ApiResponse<List<Transaction>>> GetByCondition([FromQuery] string condition)
     {
-        return transactionService.GetByCondition(condition);
+        return await transactionService.GetByCondition(condition);
     }
-    
+
     [HttpGet("Exists/{id:int}")]
-    public ApiResponse<bool> Exists(int id)
+    public async Task<ApiResponse<bool>> Exists(int id)
     {
-        return transactionService.Exists(id);
+        return await transactionService.Exists(id);
     }
-    
+
     [HttpGet("Count")]
-    public ApiResponse<int> Count()
+    public async Task<ApiResponse<int>> Count()
     {
-        return transactionService.Count();
+        return await transactionService.Count();
     }
-    
+
     [HttpPatch("{id:int}")]
-    public ApiResponse<bool> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
+    public async Task<ApiResponse<bool>> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
     {
-        return transactionService.UpdatePartial(id, propertyName, newValue);
+        return await transactionService.UpdatePartial(id, propertyName, newValue);
     }
 }

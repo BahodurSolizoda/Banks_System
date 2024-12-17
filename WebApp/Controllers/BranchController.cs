@@ -11,54 +11,56 @@ namespace WebApp.Controllers;
 public class BranchController(IGenericService<Branch> branchService):ControllerBase
 {
     [HttpGet]
-    public ApiResponse<List<Branch>> GetAll()
+    public async Task<ApiResponse<List<Branch>>> GetAll()
     {
-        return branchService.GetAll();
+        return await branchService.GetAll();
     }
+
     [HttpGet("{id:int}")]
-    public ApiResponse<Branch> GetById(int id)
+    public async Task<ApiResponse<Branch>> GetById(int id)
     {
-        return branchService.GetById(id);
+        return await branchService.GetById(id);
     }
+
     [HttpPost]
-    public ApiResponse<bool> Add(Branch branch)
+    public async Task<ApiResponse<bool>> Add([FromBody] Branch branch)
     {
-        return branchService.Add(branch);
+        return await branchService.Add(branch);
     }
+
     [HttpPut]
-    public ApiResponse<bool> Update(Branch branch)
+    public async Task<ApiResponse<bool>> Update([FromBody] Branch branch)
     {
-        return branchService.Update(branch);
+        return await branchService.Update(branch);
     }
-    [HttpDelete]
-    public ApiResponse<bool> Delete(int id)
+
+    [HttpDelete("{id:int}")]
+    public async Task<ApiResponse<bool>> Delete(int id)
     {
-        return branchService.Delete(id);
+        return await branchService.Delete(id);
     }
-    
-    
-    //New
+
     [HttpGet("GetByCondition")]
-    public ApiResponse<List<Branch>> GetByCondition([FromQuery] string condition)
+    public async Task<ApiResponse<List<Branch>>> GetByCondition([FromQuery] string condition)
     {
-        return branchService.GetByCondition(condition);
+        return await branchService.GetByCondition(condition);
     }
-    
+
     [HttpGet("Exists/{id:int}")]
-    public ApiResponse<bool> Exists(int id)
+    public async Task<ApiResponse<bool>> Exists(int id)
     {
-        return branchService.Exists(id);
+        return await branchService.Exists(id);
     }
-    
+
     [HttpGet("Count")]
-    public ApiResponse<int> Count()
+    public async Task<ApiResponse<int>> Count()
     {
-        return branchService.Count();
+        return await branchService.Count();
     }
-    
+
     [HttpPatch("{id:int}")]
-    public ApiResponse<bool> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
+    public async Task<ApiResponse<bool>> UpdatePartial(int id, [FromQuery] string propertyName, [FromQuery] object newValue)
     {
-        return branchService.UpdatePartial(id, propertyName, newValue);
+        return await branchService.UpdatePartial(id, propertyName, newValue);
     }
 }

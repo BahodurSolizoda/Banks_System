@@ -4,23 +4,24 @@ namespace Infrastructure.Interfaces;
 
 public interface IGenericService<T>
 {
-    ApiResponse<List<T>> GetAll();
-    ApiResponse<T> GetById(int id);
-    ApiResponse<bool> Add(T data);
-    ApiResponse<bool> Update(T data);
-    ApiResponse<bool> Delete(int id);
+    Task<ApiResponse<List<T>>> GetAll();
+    Task<ApiResponse<T>> GetById(int id);
+    Task<ApiResponse<bool>> Add(T data);
+    Task<ApiResponse<bool>> Update(T data);
+    Task<ApiResponse<bool>> Delete(int id);
     
     //Get all through condition
-    ApiResponse<List<T>> GetByCondition(string condition);
+    Task<ApiResponse<List<T>>> GetByCondition(string condition);
     
     //Existance
-    ApiResponse<bool> Exists(int id);
+    Task<ApiResponse<bool>> Exists(int id);
     
     //Counting
-    ApiResponse<int> Count();
+    Task<ApiResponse<int>> Count();
     
     //Partial changing
-    ApiResponse<bool> UpdatePartial(int id, string propertyName, object newValue);
+    Task<ApiResponse<bool>> UpdatePartial(int id, string propertyName, object newValue);
+    
     
     
 }
